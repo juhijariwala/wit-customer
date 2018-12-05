@@ -18,7 +18,7 @@ public class CustomerService {
         this(MyBatisUtil.openSqlSession());
     }
 
-    public CustomerService(SqlSession sqlSession) {
+    private CustomerService(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
         this.customerMapper = sqlSession.getMapper(CustomerMapper.class);
     }
@@ -35,7 +35,7 @@ public class CustomerService {
     public boolean delete(long id) {
         int result = customerMapper.delete(id);
         sqlSession.commit();
-        return result == SUCCESSFUL ;
+        return result == SUCCESSFUL;
     }
 
     public Customer createAccount(Customer customer) {
