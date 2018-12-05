@@ -19,7 +19,7 @@
     </environments>
 
     <mappers>
-        <mapper class="com.wit.catalog.mapper.CatalogMapper"/>
+        <mapper class="com.wit.customer.mapper.CustomerMapper"/>
     </mappers>
 
 </configuration>

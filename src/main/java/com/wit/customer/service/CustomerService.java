@@ -1,5 +1,8 @@
 package com.wit.customer.service;
 
+import com.wit.customer.mapper.CustomerMapper;
+import com.wit.customer.mapper.MyBatisUtil;
+import com.wit.customer.model.Customer;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
@@ -7,10 +10,41 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
     private SqlSession sqlSession;
+    private CustomerMapper customerMapper;
 
+    private static final int SUCCESSFUL = 1;
 
-    @Override
-    public String toString() {
-        return "Testing customer called!";
+    public CustomerService() {
+        this(MyBatisUtil.openSqlSession());
+    }
+
+    public CustomerService(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+        this.customerMapper = sqlSession.getMapper(CustomerMapper.class);
+    }
+
+    public Customer get(long id) {
+        return customerMapper.getById(id);
+    }
+
+    public Customer getByEmail(String email) {
+        sqlSession.clearCache();
+        return customerMapper.getByEmail(email);
+    }
+
+    public boolean delete(long id) {
+        int result = customerMapper.delete(id);
+        sqlSession.commit();
+        return result == SUCCESSFUL ;
+    }
+
+    public Customer createAccount(Customer customer) {
+        create(customer);
+        return customer;
+    }
+
+    private void create(Customer customer) {
+        customerMapper.insert(customer);
+        sqlSession.commit();
     }
 }
