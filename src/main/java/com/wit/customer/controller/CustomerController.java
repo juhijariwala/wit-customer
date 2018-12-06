@@ -16,15 +16,15 @@ public class CustomerController {
 
     @PostMapping("create")
     public ResponseEntity doCreate(@ModelAttribute Customer customer) {
-        return ResponseEntity.ok().body(new CustomerService().createAccount(customer));
+        return ResponseEntity.ok().body(new CustomerService().create(customer));
     }
 
-    @PutMapping("update/{id}")
-    public ResponseEntity doUpdate(@PathVariable long id) {
-        return ResponseEntity.ok().body(new CustomerService().toString());
+    @PutMapping("{id}")
+    public ResponseEntity doUpdate(@ModelAttribute Customer customer) {
+        return ResponseEntity.ok().body(new CustomerService().update(customer));
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity doDelete(@PathVariable long id) {
         return ResponseEntity.ok().body(new CustomerService().delete(id));
     }

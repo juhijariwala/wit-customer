@@ -22,7 +22,7 @@ public interface CustomerMapper {
     @Update("UPDATE customer " +
             "SET name=#{name}, email_Address=#{emailAddress}, mobile_number=#{mobileNumber} " +
             "WHERE id=#{id}")
-    void update(Customer customer);
+    Integer update(Customer customer);
 
     @Delete("DELETE FROM customer WHERE id = #{id}")
     Integer delete(long id);

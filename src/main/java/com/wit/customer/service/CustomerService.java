@@ -32,19 +32,21 @@ public class CustomerService {
         return customerMapper.getByEmail(email);
     }
 
-    public boolean delete(long id) {
-        int result = customerMapper.delete(id);
+    public Customer create(Customer customer) {
+        customerMapper.insert(customer);
+        sqlSession.commit();
+        return customer;
+    }
+
+    public boolean update(Customer customer) {
+        int result = customerMapper.update(customer);
         sqlSession.commit();
         return result == SUCCESSFUL;
     }
 
-    public Customer createAccount(Customer customer) {
-        create(customer);
-        return customer;
-    }
-
-    private void create(Customer customer) {
-        customerMapper.insert(customer);
+    public boolean delete(long id) {
+        int result = customerMapper.delete(id);
         sqlSession.commit();
+        return result == SUCCESSFUL;
     }
 }
