@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    image: app-customer-spring
+    depends_on:
+    - db
+    ports:
+    - 8080:8080
+  db:
+    container_name: app-customer-db
+    image: postgres:9.5
+    volumes:
+    - app-customer-db:/var/lib/postgresql/data
+    environment:
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_USER=user
+    - POSTGRES_DB=wit_customer
+    - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+    - 5432:5432
+
+volumes:
+  app-customer-db: {}
