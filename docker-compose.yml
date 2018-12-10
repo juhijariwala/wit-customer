@@ -14,15 +14,15 @@ services:
   customer-db:
     container_name: app-customer-db
     image: postgres:latest
-#    volumes:
-#    - app-customer-db:/var/lib/postgresql/data
     environment:
     - POSTGRES_USER=customer
     - POSTGRES_PASSWORD=customer
     - POSTGRES_DB=customer
     ports:
     - 5432:5432
+    volumes:
+    - ./setup.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+    - customer-db:/var/lib/postgresql/data
 
-
-#volumes:
-#  app-customer-db: {}
+volumes:
+  customer-db: {}
